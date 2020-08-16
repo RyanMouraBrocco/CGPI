@@ -35,7 +35,6 @@ namespace AtividadeCGPI.Graphic.Line
 
         public void Draw(Control drawingBase)
         {
-            Pen pen = GraphicUtils.CreatePenByGraphObject(this);
             List<PointGraph> allPoints = GeneratePoints();
             DrawAllPoints(allPoints, drawingBase);
         }
