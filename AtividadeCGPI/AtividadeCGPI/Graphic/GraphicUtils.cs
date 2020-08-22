@@ -1,7 +1,9 @@
-﻿using System;
+﻿using AtividadeCGPI.Graphic.Point;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace AtividadeCGPI.Graphic
 {
@@ -14,6 +16,12 @@ namespace AtividadeCGPI.Graphic
             return newPen;
         }
 
-
+        public static void DrawAllPoints(List<PointGraph> points, Control drawingBase)
+        {
+            foreach (PointGraph point in points)
+            {
+                point.Draw(drawingBase);
+            }
+        }
     }
 }

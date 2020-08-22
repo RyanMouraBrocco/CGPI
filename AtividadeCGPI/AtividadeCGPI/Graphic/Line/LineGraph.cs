@@ -13,14 +13,12 @@ namespace AtividadeCGPI.Graphic.Line
 
         public LineGraph() : base()
         {
-            StartPoint = new PointGraph();
-            EndPoint = new PointGraph();
+            Length = DefaultLength;
+            Color = Color.Black;
         }
 
         public LineGraph(PointGraph startPoint, PointGraph endPoint) : base(startPoint, endPoint)
         {
-            StartPoint = startPoint;
-            EndPoint = endPoint;
             Length = DefaultLength;
             Color = Color.Black;
         }
@@ -36,15 +34,7 @@ namespace AtividadeCGPI.Graphic.Line
         public void Draw(Control drawingBase)
         {
             List<PointGraph> allPoints = GeneratePoints();
-            DrawAllPoints(allPoints, drawingBase);
-        }
-
-        private void DrawAllPoints(List<PointGraph> points, Control drawingBase)
-        {
-            foreach (PointGraph point in points)
-            {
-                point.Draw(drawingBase);
-            }
+            GraphicUtils.DrawAllPoints(allPoints, drawingBase);
         }
 
         private List<PointGraph> GeneratePoints()

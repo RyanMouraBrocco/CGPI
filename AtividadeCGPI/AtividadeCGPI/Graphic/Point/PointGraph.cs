@@ -12,18 +12,14 @@ namespace AtividadeCGPI.Graphic.Point
         public int Length { get; set; }
         public Color Color { get; set; }
 
-        public PointGraph()
+        public PointGraph() : base()
         {
-            PositionX = 0;
-            PositionY = 0;
             Length = DefaultLength;
             Color = Color.Black;
         }
 
         public PointGraph(int x, int y) : base(x, y)
         {
-            PositionX = x;
-            PositionY = y;
             Color = Color.Black;
             Length = DefaultLength;
         }
