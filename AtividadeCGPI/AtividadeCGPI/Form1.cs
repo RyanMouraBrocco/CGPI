@@ -2,12 +2,15 @@
 using AtividadeCGPI.Graphic.Point;
 using AtividadeCGPI.Graphic.Line;
 using AtividadeCGPI.Graphic.Circle;
+using System.Drawing;
 
 namespace AtividadeCGPI
 {
     public partial class Form1 : Form
     {
         private PointGraph startPoint;
+        private int state = 0;
+        private Color color;
         public Form1()
         {
             InitializeComponent();
@@ -19,15 +22,74 @@ namespace AtividadeCGPI
             if (startPoint == null)
             {
                 PointGraph newPoint = new PointGraph(e.X, e.Y);
+                newPoint.Color = color;
                 newPoint.Draw(this);
                 startPoint = newPoint;
             }
             else
             {
                 PointGraph newPoint = new PointGraph(e.X, e.Y);
-                CircleGraph newLine = new CircleGraph(startPoint, newPoint);
-                newLine.Draw(this);
+                switch (state)
+                {
+                    case 0:
+                        newPoint.Color = color;
+                        newPoint.Draw(this);
+                        break;
+                    case 1:
+                        LineGraph newLine = new LineGraph(startPoint, newPoint);
+                        newLine.Color = color;
+                        newLine.Draw(this);
+                        break;
+                    case 2:
+                        CircleGraph newCirle = new CircleGraph(startPoint, newPoint);
+                        newCirle.Color = color;
+                        newCirle.Draw(this);
+                        break;
+                    default:
+                        break;
+                }
+
+
                 startPoint = null;
+            }
+        }
+
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+            color = Color.Black;
+            panelColor.BackColor = Color.Black;
+        }
+
+        private void btnClear_Click(object sender, System.EventArgs e)
+        {
+            this.Invalidate();
+            startPoint = null;
+        }
+
+        private void btnPoint_Click(object sender, System.EventArgs e)
+        {
+            state = 0;
+            startPoint = null;
+        }
+
+        private void btnLine_Click(object sender, System.EventArgs e)
+        {
+            state = 1;
+            startPoint = null;
+        }
+
+        private void btnCircle_Click(object sender, System.EventArgs e)
+        {
+            state = 2;
+            startPoint = null;
+        }
+
+        private void linkColor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (colorDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                color = colorDialog1.Color;
+                panelColor.BackColor = color;
             }
         }
     }
