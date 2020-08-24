@@ -53,7 +53,7 @@ namespace AtividadeCGPI.Graphic.Line
 
             if (slopeIndex == 0)
             {
-                return 0;
+                return StartPoint.PositionX;
             }
 
             return (positionY - GenerateConstantValue()) / slopeIndex;
