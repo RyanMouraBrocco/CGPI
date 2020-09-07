@@ -98,8 +98,8 @@ namespace AtividadeCGPI
 
         private void btnCommon_Click(object sender, System.EventArgs e)
         {
-            state = 3;
-            startPoint = null;
+            FormComplexGraph complexForm = new FormComplexGraph();
+            complexForm.ShowDialog();
         }
 
         private void linkColor_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

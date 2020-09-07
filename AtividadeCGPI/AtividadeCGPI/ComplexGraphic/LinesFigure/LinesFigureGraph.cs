@@ -55,43 +55,46 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
             lines.Add(new LineGraph(leftTopPoint, leftBottomPoint, Length, Color));
             lines.Add(new LineGraph(rightTopPoint, rightBottomPoint, Length, Color));
 
-            Graphic.Point.Point currentPoint = null;
-            double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity - 1);
-            int quantityOfInterval = 1;
-            while (!leftTopPoint.Equals(currentPoint))
+            if (DivisionQuantity > 1)
             {
-                if (currentPoint == null)
-                    currentPoint = leftTopPoint;
+                Graphic.Point.Point currentPoint = null;
+                double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity - 1);
+                int quantityOfInterval = 1;
+                while (!leftTopPoint.Equals(currentPoint))
+                {
+                    if (currentPoint == null)
+                        currentPoint = leftTopPoint;
 
-                Graphic.Point.Point nextPoint = new Graphic.Point.Point();
-                if (currentPoint.PositionY == leftTopPoint.PositionY && currentPoint.PositionX != rightTopPoint.PositionX)
-                {
-                    nextPoint.PositionX = rightTopPoint.PositionX;
-                    nextPoint.PositionY = rightTopPoint.PositionY + (quantityOfInterval * interval);
-                }
-                else if (currentPoint.PositionY == leftBottomPoint.PositionY && currentPoint.PositionX != leftBottomPoint.PositionX)
-                {
-                    nextPoint.PositionX = leftTopPoint.PositionX;
-                    nextPoint.PositionY = leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
-                }
-                else
-                {
-                    if (currentPoint.PositionX == leftTopPoint.PositionX)
+                    Graphic.Point.Point nextPoint = new Graphic.Point.Point();
+                    if (currentPoint.PositionY == leftTopPoint.PositionY && currentPoint.PositionX != rightTopPoint.PositionX)
                     {
-                        nextPoint.PositionX = leftTopPoint.PositionX + (quantityOfInterval * interval);
-                        nextPoint.PositionY = leftTopPoint.PositionY;
+                        nextPoint.PositionX = rightTopPoint.PositionX;
+                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity - 1 ? rightBottomPoint.PositionY : rightTopPoint.PositionY + (quantityOfInterval * interval);
                     }
-                    else if (currentPoint.PositionX == rightTopPoint.PositionX)
+                    else if (currentPoint.PositionY == leftBottomPoint.PositionY && currentPoint.PositionX != leftBottomPoint.PositionX)
                     {
-                        nextPoint.PositionX = rightBottomPoint.PositionX - (quantityOfInterval * interval);
-                        nextPoint.PositionY = rightBottomPoint.PositionY;
+                        nextPoint.PositionX = leftTopPoint.PositionX;
+                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity - 1 ? leftTopPoint.PositionY : leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
                     }
+                    else
+                    {
+                        if (currentPoint.PositionX == leftTopPoint.PositionX)
+                        {
+                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity - 1 ? rightTopPoint.PositionX : leftTopPoint.PositionX + (quantityOfInterval * interval);
+                            nextPoint.PositionY = leftTopPoint.PositionY;
+                        }
+                        else if (currentPoint.PositionX == rightTopPoint.PositionX)
+                        {
+                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity - 1 ? leftBottomPoint.PositionX : rightBottomPoint.PositionX - (quantityOfInterval * interval);
+                            nextPoint.PositionY = rightBottomPoint.PositionY;
+                        }
+                    }
+
+                    lines.Add(CreateLineByPoint(currentPoint, nextPoint));
+                    currentPoint = nextPoint;
+
+                    quantityOfInterval = IncrementQuantity(quantityOfInterval);
                 }
-
-                lines.Add(CreateLineByPoint(currentPoint, nextPoint));
-                currentPoint = nextPoint;
-
-                quantityOfInterval = IncrementQuantity(quantityOfInterval);
             }
 
             return lines;

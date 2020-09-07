@@ -61,7 +61,7 @@
             this.btnComon.Name = "btnComon";
             this.btnComon.Size = new System.Drawing.Size(95, 46);
             this.btnComon.TabIndex = 0;
-            this.btnComon.Text = "Imagem Comum";
+            this.btnComon.Text = "Imagens Complexas";
             this.btnComon.UseVisualStyleBackColor = true;
             this.btnComon.Click += new System.EventHandler(this.btnCommon_Click);
             // 

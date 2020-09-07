@@ -17,6 +17,7 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
         public PointGraph CenterPoint { get; set; }
         public int Length { get; set; }
         public Color Color { get; set; }
+        public Color SecondColor { get; set; }
         public int LengthFromCenter { get; set; }
 
         public CommonImageGraph()
@@ -27,12 +28,13 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
             Color = Color.Black;
         }
 
-        public CommonImageGraph(PointGraph centerPoint, int length,int lengthFromCenter, Color color)
+        public CommonImageGraph(PointGraph centerPoint, int length, int lengthFromCenter, Color color, Color secondColor)
         {
             CenterPoint = centerPoint;
             Length = length;
             LengthFromCenter = lengthFromCenter;
             Color = color;
+            SecondColor = secondColor;
         }
 
         public void Draw(Control drawingBase)
@@ -52,24 +54,24 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
             PointGraph rightBottomCenterPoint = new PointGraph((int)CenterPoint.PositionX + (int)(0.25 * LengthFromCenter), (int)CenterPoint.PositionY + (int)(0.5 * LengthFromCenter));
             PointGraph leftBottomCenterPoint = new PointGraph((int)CenterPoint.PositionX - (int)(0.25 * LengthFromCenter), (int)CenterPoint.PositionY + (int)(0.5 * LengthFromCenter));
 
-            LineGraph centerVerticalLine = new LineGraph(centerTopPoint, centerBottomPoint, Length, Color.Red);
-            LineGraph leftVerticalLine = new LineGraph(leftTopPoint, leftBottomPoint, Length, Color.Red);
-            LineGraph rightVerticalLine = new LineGraph(rightTopPoint, rightBottomPoint, Length, Color.Red);
-            LineGraph centerHorizontalLine = new LineGraph(rightCenterPoint, leftCenterPoint, Length, Color.Red);
-            LineGraph rigthCenterDiagonal = new LineGraph(rightTopCenterPoint, leftBottomCenterPoint, Length, Color.Red);
-            LineGraph leftCenterDiagonal = new LineGraph(leftTopCenterPoint, rightBottomCenterPoint, Length, Color.Red);
-            LineGraph topHorizontalLine = new LineGraph(rightTopPoint, leftTopPoint, Length, Color.Red);
-            LineGraph bottomHorizontalLine = new LineGraph(rightBottomPoint, leftBottomPoint, Length, Color.Red);
-            LineGraph leftTopDiagonalLine = new LineGraph(centerTopPoint, leftTopPoint, Length, Color.Red);
-            LineGraph rightTopDiagonalLine = new LineGraph(centerTopPoint, rightTopPoint, Length, Color.Red);
-            LineGraph leftBottomDiagonalLine = new LineGraph(centerBottomPoint, leftBottomPoint, Length, Color.Red);
-            LineGraph rightBottomDiagonalLine = new LineGraph(centerBottomPoint, rightBottomPoint, Length, Color.Red);
-            LineGraph rightTopTriangleDiagonalLine = new LineGraph(centerTopPoint, rightBottomPoint, Length, Color.Red);
-            LineGraph leftTopTriangleDiagonalLine = new LineGraph(centerTopPoint, leftBottomPoint, Length, Color.Red);
-            LineGraph rightBottomTriangleDiagonalLine = new LineGraph(centerBottomPoint, rightTopPoint, Length, Color.Red);
-            LineGraph leftBottomTriangleDiagonalLine = new LineGraph(centerBottomPoint, leftTopPoint, Length, Color.Red);
-            LineGraph topRectangleDiagonalLine = new LineGraph(leftTopPoint, rightBottomPoint, Length, Color.Red);
-            LineGraph bottomRectangleDiagonalLine = new LineGraph(rightTopPoint, leftBottomPoint, Length, Color.Red);
+            LineGraph centerVerticalLine = new LineGraph(centerTopPoint, centerBottomPoint, Length, Color);
+            LineGraph leftVerticalLine = new LineGraph(leftTopPoint, leftBottomPoint, Length, Color);
+            LineGraph rightVerticalLine = new LineGraph(rightTopPoint, rightBottomPoint, Length, Color);
+            LineGraph centerHorizontalLine = new LineGraph(rightCenterPoint, leftCenterPoint, Length, Color);
+            LineGraph rigthCenterDiagonal = new LineGraph(rightTopCenterPoint, leftBottomCenterPoint, Length, Color);
+            LineGraph leftCenterDiagonal = new LineGraph(leftTopCenterPoint, rightBottomCenterPoint, Length, Color);
+            LineGraph topHorizontalLine = new LineGraph(rightTopPoint, leftTopPoint, Length, Color);
+            LineGraph bottomHorizontalLine = new LineGraph(rightBottomPoint, leftBottomPoint, Length, Color);
+            LineGraph leftTopDiagonalLine = new LineGraph(centerTopPoint, leftTopPoint, Length, Color);
+            LineGraph rightTopDiagonalLine = new LineGraph(centerTopPoint, rightTopPoint, Length, Color);
+            LineGraph leftBottomDiagonalLine = new LineGraph(centerBottomPoint, leftBottomPoint, Length, Color);
+            LineGraph rightBottomDiagonalLine = new LineGraph(centerBottomPoint, rightBottomPoint, Length, Color);
+            LineGraph rightTopTriangleDiagonalLine = new LineGraph(centerTopPoint, rightBottomPoint, Length, Color);
+            LineGraph leftTopTriangleDiagonalLine = new LineGraph(centerTopPoint, leftBottomPoint, Length, Color);
+            LineGraph rightBottomTriangleDiagonalLine = new LineGraph(centerBottomPoint, rightTopPoint, Length, Color);
+            LineGraph leftBottomTriangleDiagonalLine = new LineGraph(centerBottomPoint, leftTopPoint, Length, Color);
+            LineGraph topRectangleDiagonalLine = new LineGraph(leftTopPoint, rightBottomPoint, Length, Color);
+            LineGraph bottomRectangleDiagonalLine = new LineGraph(rightTopPoint, leftBottomPoint, Length, Color);
 
             lines.Add(centerVerticalLine);
             lines.Add(leftVerticalLine);
@@ -92,13 +94,13 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
 
             List<CircleGraph> circles = new List<CircleGraph>();
 
-            CircleGraph centerCircle = new CircleGraph(CenterPoint, leftCenterPoint, Length, Color.Green);
-            CircleGraph rightTopCircle = new CircleGraph(rightTopCenterPoint, rightTopPoint, Length, Color.Green);
-            CircleGraph leftTopCircle = new CircleGraph(leftTopCenterPoint, leftTopPoint, Length, Color.Green);
-            CircleGraph rightBottomCircle = new CircleGraph(rightBottomCenterPoint, rightBottomPoint, Length, Color.Green);
-            CircleGraph leftBottomCircle = new CircleGraph(leftBottomCenterPoint, leftBottomPoint, Length, Color.Green);
-            CircleGraph rightCenterCircle = new CircleGraph(rightCenterPoint, CenterPoint, Length, Color.Green);
-            CircleGraph leftCenterCircle = new CircleGraph(leftCenterPoint, CenterPoint, Length, Color.Green);
+            CircleGraph centerCircle = new CircleGraph(CenterPoint, leftCenterPoint, Length, SecondColor);
+            CircleGraph rightTopCircle = new CircleGraph(rightTopCenterPoint, rightTopPoint, Length, SecondColor);
+            CircleGraph leftTopCircle = new CircleGraph(leftTopCenterPoint, leftTopPoint, Length, SecondColor);
+            CircleGraph rightBottomCircle = new CircleGraph(rightBottomCenterPoint, rightBottomPoint, Length, SecondColor);
+            CircleGraph leftBottomCircle = new CircleGraph(leftBottomCenterPoint, leftBottomPoint, Length, SecondColor);
+            CircleGraph rightCenterCircle = new CircleGraph(rightCenterPoint, CenterPoint, Length, SecondColor);
+            CircleGraph leftCenterCircle = new CircleGraph(leftCenterPoint, CenterPoint, Length, SecondColor);
 
             circles.Add(centerCircle);
             circles.Add(rightTopCircle);
