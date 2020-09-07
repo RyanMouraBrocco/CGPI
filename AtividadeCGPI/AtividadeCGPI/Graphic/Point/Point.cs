@@ -20,5 +20,16 @@ namespace AtividadeCGPI.Graphic.Point
             PositionX = x;
             PositionY = y;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Point))
+            {
+                return false;
+            }
+
+            return PositionX == ((Point)obj).PositionX && PositionY == ((Point)obj).PositionY;
+        }
+
     }
 }

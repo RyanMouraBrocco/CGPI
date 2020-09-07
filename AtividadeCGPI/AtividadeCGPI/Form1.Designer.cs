@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnComon = new System.Windows.Forms.Button();
             this.linkColor = new System.Windows.Forms.LinkLabel();
             this.panelColor = new System.Windows.Forms.Panel();
             this.btnPoint = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.Controls.Add(this.btnComon);
             this.panel1.Controls.Add(this.linkColor);
             this.panel1.Controls.Add(this.panelColor);
             this.panel1.Controls.Add(this.btnPoint);
@@ -50,13 +52,23 @@
             this.panel1.Controls.Add(this.btnLine);
             this.panel1.Location = new System.Drawing.Point(10, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 78);
+            this.panel1.Size = new System.Drawing.Size(764, 78);
             this.panel1.TabIndex = 0;
+            // 
+            // btnComon
+            // 
+            this.btnComon.Location = new System.Drawing.Point(491, 16);
+            this.btnComon.Name = "btnComon";
+            this.btnComon.Size = new System.Drawing.Size(95, 46);
+            this.btnComon.TabIndex = 0;
+            this.btnComon.Text = "Imagem Comum";
+            this.btnComon.UseVisualStyleBackColor = true;
+            this.btnComon.Click += new System.EventHandler(this.btnCommon_Click);
             // 
             // linkColor
             // 
             this.linkColor.AutoSize = true;
-            this.linkColor.Location = new System.Drawing.Point(515, 49);
+            this.linkColor.Location = new System.Drawing.Point(717, 47);
             this.linkColor.Name = "linkColor";
             this.linkColor.Size = new System.Drawing.Size(26, 15);
             this.linkColor.TabIndex = 2;
@@ -66,7 +78,7 @@
             // 
             // panelColor
             // 
-            this.panelColor.Location = new System.Drawing.Point(516, 21);
+            this.panelColor.Location = new System.Drawing.Point(718, 19);
             this.panelColor.Name = "panelColor";
             this.panelColor.Size = new System.Drawing.Size(25, 25);
             this.panelColor.TabIndex = 1;
@@ -115,7 +127,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 450);
+            this.ClientSize = new System.Drawing.Size(934, 450);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -136,6 +148,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnCircle;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button btnComon;
     }
 }
 

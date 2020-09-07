@@ -3,6 +3,8 @@ using AtividadeCGPI.Graphic.Point;
 using AtividadeCGPI.Graphic.Line;
 using AtividadeCGPI.Graphic.Circle;
 using System.Drawing;
+using AtividadeCGPI.ComplexGraphic.CommonImage;
+using AtividadeCGPI.ComplexGraphic.LinesFigure;
 
 namespace AtividadeCGPI
 {
@@ -23,8 +25,18 @@ namespace AtividadeCGPI
             {
                 PointGraph newPoint = new PointGraph(e.X, e.Y);
                 newPoint.Color = color;
-                newPoint.Draw(this);
-                startPoint = newPoint;
+                if (state != 3)
+                {
+                    newPoint.Draw(this);
+                    startPoint = newPoint;
+                }
+                else
+                {
+                    //CommonImageGraph commonImage = new CommonImageGraph(newPoint, 5, color);
+                    //commonImage.Draw(this);
+                    LinesFigureGraph linesFigure = new LinesFigureGraph(newPoint, 5, 5, 300, color);
+                    linesFigure.Draw(this);
+                }
             }
             else
             {
@@ -81,6 +93,12 @@ namespace AtividadeCGPI
         private void btnCircle_Click(object sender, System.EventArgs e)
         {
             state = 2;
+            startPoint = null;
+        }
+
+        private void btnCommon_Click(object sender, System.EventArgs e)
+        {
+            state = 3;
             startPoint = null;
         }
 
