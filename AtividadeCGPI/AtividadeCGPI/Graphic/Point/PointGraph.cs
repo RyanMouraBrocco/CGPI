@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace AtividadeCGPI.Graphic.Point
 {
-    public class PointGraph : Point, IGraph
+    public class PointGraph : Point, IGraph, ICloneable
     {
         private int DefaultLength { get { return 5; } }
         public int Length { get; set; }
@@ -46,6 +46,17 @@ namespace AtividadeCGPI.Graphic.Point
             microsoftPoint.Y = (int)point.PositionY;
 
             return microsoftPoint;
+        }
+
+        public object Clone()
+        {
+            PointGraph clonedObject = new PointGraph();
+            clonedObject.PositionX = this.PositionX;
+            clonedObject.PositionY = this.PositionY;
+            clonedObject.Length = this.Length;
+            clonedObject.Color = this.Color;
+
+            return clonedObject;
         }
     }
 }

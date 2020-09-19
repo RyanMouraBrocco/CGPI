@@ -58,43 +58,27 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
             if (DivisionQuantity > 1)
             {
                 Graphic.Point.Point currentPoint = null;
-                double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity);
-                int quantityOfInterval = 1;
-                while (!leftTopPoint.Equals(currentPoint))
+                Graphic.Point.Point initialPoint = (Graphic.Point.Point)leftTopPoint.Clone();
+
+
+                if (DivisionQuantity % 2 == 0)
                 {
-                    if (currentPoint == null)
-                        currentPoint = leftTopPoint;
-
-                    Graphic.Point.Point nextPoint = new Graphic.Point.Point();
-                    if (currentPoint.PositionY == leftTopPoint.PositionY && currentPoint.PositionX != rightTopPoint.PositionX)
-                    {
-                        nextPoint.PositionX = rightTopPoint.PositionX;
-                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? rightBottomPoint.PositionY : rightTopPoint.PositionY + (quantityOfInterval * interval);
-                    }
-                    else if (currentPoint.PositionY == leftBottomPoint.PositionY && currentPoint.PositionX != leftBottomPoint.PositionX)
-                    {
-                        nextPoint.PositionX = leftTopPoint.PositionX;
-                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? leftTopPoint.PositionY : leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
-                    }
-                    else
-                    {
-                        if (currentPoint.PositionX == leftTopPoint.PositionX)
-                        {
-                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? rightTopPoint.PositionX : leftTopPoint.PositionX + (quantityOfInterval * interval);
-                            nextPoint.PositionY = leftTopPoint.PositionY;
-                        }
-                        else if (currentPoint.PositionX == rightTopPoint.PositionX)
-                        {
-                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? leftBottomPoint.PositionX : rightBottomPoint.PositionX - (quantityOfInterval * interval);
-                            nextPoint.PositionY = rightBottomPoint.PositionY;
-                        }
-                    }
-
-                    lines.Add(CreateLineByPoint(currentPoint, nextPoint));
-                    currentPoint = nextPoint;
-
-                    quantityOfInterval = IncrementQuantity(quantityOfInterval);
+                    lines.AddRange(GenerateLines(initialPoint, currentPoint, leftTopPoint, rightTopPoint, leftBottomPoint, rightBottomPoint, 1));
                 }
+                else
+                {
+                    int firstPrimeNumber = GetFirstPrimeDivisionNumber();
+                    for (int i = 0; i <= firstPrimeNumber; i++)
+                    {
+                        double interval = (double)(2 * LengthFromCenter) / (double)(firstPrimeNumber);
+                        initialPoint.PositionX = leftTopPoint.PositionX + (i * interval);
+                        int currentQuantityOfInterval = i < firstPrimeNumber ? i + 1 : 1;
+
+                        lines.AddRange(GenerateLines(initialPoint, currentPoint, leftTopPoint, rightTopPoint, leftBottomPoint, rightBottomPoint, currentQuantityOfInterval));
+                        currentPoint = null;
+                    }
+                }
+
             }
             else
             {
@@ -123,6 +107,64 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
         {
             LineGraph newLine = new LineGraph(new PointGraph((int)startPoint.PositionX, (int)startPoint.PositionY), new PointGraph((int)endPoint.PositionX, (int)endPoint.PositionY), Length, Color);
             return newLine;
+        }
+
+        private List<LineGraph> GenerateLines(Graphic.Point.Point initialPoint, Graphic.Point.Point currentPoint, PointGraph leftTopPoint, PointGraph rightTopPoint, PointGraph leftBottomPoint, PointGraph rightBottomPoint, int initialInterval)
+        {
+            List<LineGraph> lines = new List<LineGraph>();
+            int quantityOfInterval = initialInterval;
+            double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity);
+
+            while (!initialPoint.Equals(currentPoint))
+            {
+                if (currentPoint == null)
+                    currentPoint = initialPoint;
+
+                Graphic.Point.Point nextPoint = new Graphic.Point.Point();
+                if (currentPoint.PositionY == leftTopPoint.PositionY && currentPoint.PositionX != rightTopPoint.PositionX)
+                {
+                    nextPoint.PositionX = rightTopPoint.PositionX;
+                    nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? rightBottomPoint.PositionY : rightTopPoint.PositionY + (quantityOfInterval * interval);
+                }
+                else if (currentPoint.PositionY == leftBottomPoint.PositionY && currentPoint.PositionX != leftBottomPoint.PositionX)
+                {
+                    nextPoint.PositionX = leftTopPoint.PositionX;
+                    nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? leftTopPoint.PositionY : leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
+                }
+                else
+                {
+                    if (currentPoint.PositionX == leftTopPoint.PositionX)
+                    {
+                        nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? rightTopPoint.PositionX : leftTopPoint.PositionX + (quantityOfInterval * interval);
+                        nextPoint.PositionY = leftTopPoint.PositionY;
+                    }
+                    else if (currentPoint.PositionX == rightTopPoint.PositionX)
+                    {
+                        nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? leftBottomPoint.PositionX : rightBottomPoint.PositionX - (quantityOfInterval * interval);
+                        nextPoint.PositionY = rightBottomPoint.PositionY;
+                    }
+                }
+
+                lines.Add(CreateLineByPoint(currentPoint, nextPoint));
+                currentPoint = nextPoint;
+
+                quantityOfInterval = IncrementQuantity(quantityOfInterval);
+            }
+
+            return lines;
+        }
+        private int GetFirstPrimeDivisionNumber()
+        {
+            int sqrtDivisionNumber = (int)Math.Sqrt(DivisionQuantity);
+            for (int i = 2; i < sqrtDivisionNumber; i++)
+            {
+                if (DivisionQuantity % i == 0)
+                {
+                    return i;
+                }
+            }
+
+            return DivisionQuantity;
         }
     }
 }
