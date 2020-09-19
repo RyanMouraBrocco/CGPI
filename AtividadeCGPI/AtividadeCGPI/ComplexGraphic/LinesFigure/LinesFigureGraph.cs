@@ -58,7 +58,7 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
             if (DivisionQuantity > 1)
             {
                 Graphic.Point.Point currentPoint = null;
-                double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity - 1);
+                double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity);
                 int quantityOfInterval = 1;
                 while (!leftTopPoint.Equals(currentPoint))
                 {
@@ -69,23 +69,23 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
                     if (currentPoint.PositionY == leftTopPoint.PositionY && currentPoint.PositionX != rightTopPoint.PositionX)
                     {
                         nextPoint.PositionX = rightTopPoint.PositionX;
-                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity - 1 ? rightBottomPoint.PositionY : rightTopPoint.PositionY + (quantityOfInterval * interval);
+                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? rightBottomPoint.PositionY : rightTopPoint.PositionY + (quantityOfInterval * interval);
                     }
                     else if (currentPoint.PositionY == leftBottomPoint.PositionY && currentPoint.PositionX != leftBottomPoint.PositionX)
                     {
                         nextPoint.PositionX = leftTopPoint.PositionX;
-                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity - 1 ? leftTopPoint.PositionY : leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
+                        nextPoint.PositionY = quantityOfInterval == DivisionQuantity ? leftTopPoint.PositionY : leftTopPoint.PositionY + ((2 * LengthFromCenter) - (quantityOfInterval * interval));
                     }
                     else
                     {
                         if (currentPoint.PositionX == leftTopPoint.PositionX)
                         {
-                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity - 1 ? rightTopPoint.PositionX : leftTopPoint.PositionX + (quantityOfInterval * interval);
+                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? rightTopPoint.PositionX : leftTopPoint.PositionX + (quantityOfInterval * interval);
                             nextPoint.PositionY = leftTopPoint.PositionY;
                         }
                         else if (currentPoint.PositionX == rightTopPoint.PositionX)
                         {
-                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity - 1 ? leftBottomPoint.PositionX : rightBottomPoint.PositionX - (quantityOfInterval * interval);
+                            nextPoint.PositionX = quantityOfInterval == DivisionQuantity ? leftBottomPoint.PositionX : rightBottomPoint.PositionX - (quantityOfInterval * interval);
                             nextPoint.PositionY = rightBottomPoint.PositionY;
                         }
                     }
@@ -96,13 +96,18 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
                     quantityOfInterval = IncrementQuantity(quantityOfInterval);
                 }
             }
+            else
+            {
+                lines.Add(new LineGraph(leftTopPoint, rightBottomPoint, Length, Color));
+                lines.Add(new LineGraph(rightTopPoint, leftBottomPoint, Length, Color));
+            }
 
             return lines;
         }
 
         private int IncrementQuantity(int quantity)
         {
-            if (quantity == DivisionQuantity - 1)
+            if (quantity == DivisionQuantity)
             {
                 quantity = 1;
             }
