@@ -1,4 +1,5 @@
-﻿using AtividadeCGPI.Graphic;
+﻿using Accessibility;
+using AtividadeCGPI.Graphic;
 using AtividadeCGPI.Graphic.Line;
 using AtividadeCGPI.Graphic.Point;
 using System;
@@ -68,14 +69,23 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
                 else
                 {
                     int firstPrimeNumber = GetFirstPrimeDivisionNumber();
-                    for (int i = 0; i <= firstPrimeNumber; i++)
+                    for (int i = 0; i <= DivisionQuantity;)
                     {
-                        double interval = (double)(2 * LengthFromCenter) / (double)(firstPrimeNumber);
+                        double interval = (double)(2 * LengthFromCenter) / (double)(DivisionQuantity);
                         initialPoint.PositionX = leftTopPoint.PositionX + (i * interval);
-                        int currentQuantityOfInterval = i < firstPrimeNumber ? i + 1 : 1;
+                        int currentQuantityOfInterval = i < DivisionQuantity ? (i + 1) : 1;
 
                         lines.AddRange(GenerateLines(initialPoint, currentPoint, leftTopPoint, rightTopPoint, leftBottomPoint, rightBottomPoint, currentQuantityOfInterval));
                         currentPoint = null;
+
+                        if (firstPrimeNumber == DivisionQuantity)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            i += (DivisionQuantity / firstPrimeNumber);
+                        }
                     }
                 }
 
@@ -153,10 +163,11 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
 
             return lines;
         }
+
         private int GetFirstPrimeDivisionNumber()
         {
             int sqrtDivisionNumber = (int)Math.Sqrt(DivisionQuantity);
-            for (int i = 2; i < sqrtDivisionNumber; i++)
+            for (int i = 3; i <= sqrtDivisionNumber; i += 2)
             {
                 if (DivisionQuantity % i == 0)
                 {
