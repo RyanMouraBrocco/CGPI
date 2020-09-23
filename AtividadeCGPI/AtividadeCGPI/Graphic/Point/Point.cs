@@ -31,5 +31,9 @@ namespace AtividadeCGPI.Graphic.Point
             return PositionX == ((Point)obj).PositionX && PositionY == ((Point)obj).PositionY;
         }
 
+        public override int GetHashCode()
+        {
+            return (int)(PositionX + PositionY);
+        }
     }
 }

@@ -4,6 +4,7 @@ using AtividadeCGPI.Graphic.Point;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace AtividadeCGPI.Graphic
 
         public static void DrawAllLines(List<LineGraph> lines, Control drawingBase)
         {
-            foreach (LineGraph line in lines)
+            foreach (LineGraph line in lines.Distinct())
             {
                 line.Draw(drawingBase);
             }

@@ -59,5 +59,20 @@ namespace AtividadeCGPI.Graphic.Line
             return (positionY - GenerateConstantValue()) / slopeIndex;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Line))
+            {
+                return false;
+            }
+
+            return StartPoint.Equals(((Line)obj).StartPoint) && EndPoint.Equals(((Line)obj).EndPoint);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return StartPoint.GetHashCode() + EndPoint.GetHashCode();
+        }
     }
 }
