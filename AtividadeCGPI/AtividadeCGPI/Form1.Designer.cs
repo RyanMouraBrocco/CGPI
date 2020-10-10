@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnMapping = new System.Windows.Forms.Button();
             this.btnComon = new System.Windows.Forms.Button();
             this.linkColor = new System.Windows.Forms.LinkLabel();
             this.panelColor = new System.Windows.Forms.Panel();
@@ -37,12 +38,14 @@
             this.btnCircle = new System.Windows.Forms.Button();
             this.btnLine = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.Controls.Add(this.btnMapping);
             this.panel1.Controls.Add(this.btnComon);
             this.panel1.Controls.Add(this.linkColor);
             this.panel1.Controls.Add(this.panelColor);
@@ -52,8 +55,18 @@
             this.panel1.Controls.Add(this.btnLine);
             this.panel1.Location = new System.Drawing.Point(10, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(764, 78);
+            this.panel1.Size = new System.Drawing.Size(822, 78);
             this.panel1.TabIndex = 0;
+            // 
+            // btnMapping
+            // 
+            this.btnMapping.Location = new System.Drawing.Point(604, 16);
+            this.btnMapping.Name = "btnMapping";
+            this.btnMapping.Size = new System.Drawing.Size(95, 46);
+            this.btnMapping.TabIndex = 0;
+            this.btnMapping.Text = "Mapeamento";
+            this.btnMapping.UseVisualStyleBackColor = true;
+            this.btnMapping.Click += new System.EventHandler(this.btnMapping_Click);
             // 
             // btnComon
             // 
@@ -68,7 +81,7 @@
             // linkColor
             // 
             this.linkColor.AutoSize = true;
-            this.linkColor.Location = new System.Drawing.Point(717, 47);
+            this.linkColor.Location = new System.Drawing.Point(774, 44);
             this.linkColor.Name = "linkColor";
             this.linkColor.Size = new System.Drawing.Size(26, 15);
             this.linkColor.TabIndex = 2;
@@ -78,9 +91,9 @@
             // 
             // panelColor
             // 
-            this.panelColor.Location = new System.Drawing.Point(718, 19);
+            this.panelColor.Location = new System.Drawing.Point(775, 16);
             this.panelColor.Name = "panelColor";
-            this.panelColor.Size = new System.Drawing.Size(25, 25);
+            this.panelColor.Size = new System.Drawing.Size(25, 21);
             this.panelColor.TabIndex = 1;
             // 
             // btnPoint
@@ -123,11 +136,22 @@
             this.btnLine.UseVisualStyleBackColor = true;
             this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(928, 366);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(657, 354);
+            this.panel2.TabIndex = 1;
+            this.panel2.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 450);
+            this.ClientSize = new System.Drawing.Size(1597, 732);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -149,6 +173,8 @@
         private System.Windows.Forms.Button btnCircle;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button btnComon;
+        private System.Windows.Forms.Button btnMapping;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

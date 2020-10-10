@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AtividadeCGPI.Graphic.Point;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -12,5 +13,6 @@ namespace AtividadeCGPI.Graphic
         Color Color { get; set; }
 
         void Draw(Control drawingBase);
+        List<PointGraph> GetAllPoints();
     }
 }

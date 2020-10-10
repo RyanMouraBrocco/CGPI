@@ -56,5 +56,10 @@ namespace AtividadeCGPI.Graphic.Circle
 
             return points;
         }
+
+        public List<PointGraph> GetAllPoints()
+        {
+            return GeneratePoints();
+        }
     }
 }

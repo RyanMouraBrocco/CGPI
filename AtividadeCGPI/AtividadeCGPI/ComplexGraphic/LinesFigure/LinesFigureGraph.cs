@@ -5,6 +5,7 @@ using AtividadeCGPI.Graphic.Point;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Windows.Forms;
@@ -176,6 +177,17 @@ namespace AtividadeCGPI.ComplexGraphic.LinesFigure
             }
 
             return DivisionQuantity;
+        }
+
+        public List<PointGraph> GetAllPoints()
+        {
+            List<PointGraph> allPoints = new List<PointGraph>();
+            foreach (LineGraph line in GenerateLines().Distinct())
+            {
+                allPoints.AddRange(line.GetAllPoints());
+            }
+
+            return allPoints;
         }
     }
 }

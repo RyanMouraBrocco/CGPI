@@ -39,8 +39,19 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
 
         public void Draw(Control drawingBase)
         {
-            List<LineGraph> lines = new List<LineGraph>();
+            List<PointGraph> points = GeneratePoints();
+            GraphicUtils.DrawAllCircles(GenerateCircles(points), drawingBase);
+            GraphicUtils.DrawAllLines(GenerateLines(points), drawingBase);
+        }
 
+        private double GetGoldenRatio()
+        {
+            return (1 + Math.Sqrt(5)) / 2;
+        }
+
+        private List<PointGraph> GeneratePoints()
+        {
+            List<PointGraph> points = new List<PointGraph>();
             PointGraph centerTopPoint = new PointGraph((int)CenterPoint.PositionX, (int)CenterPoint.PositionY - LengthFromCenter);
             PointGraph centerBottomPoint = new PointGraph((int)CenterPoint.PositionX, (int)CenterPoint.PositionY + LengthFromCenter);
             PointGraph leftTopPoint = new PointGraph((int)CenterPoint.PositionX - (int)(GetGoldenRatio() * 0.5 * LengthFromCenter), (int)CenterPoint.PositionY - (int)(0.5 * LengthFromCenter));
@@ -53,6 +64,39 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
             PointGraph leftTopCenterPoint = new PointGraph((int)CenterPoint.PositionX - (int)(0.25 * LengthFromCenter), (int)CenterPoint.PositionY - (int)(0.5 * LengthFromCenter));
             PointGraph rightBottomCenterPoint = new PointGraph((int)CenterPoint.PositionX + (int)(0.25 * LengthFromCenter), (int)CenterPoint.PositionY + (int)(0.5 * LengthFromCenter));
             PointGraph leftBottomCenterPoint = new PointGraph((int)CenterPoint.PositionX - (int)(0.25 * LengthFromCenter), (int)CenterPoint.PositionY + (int)(0.5 * LengthFromCenter));
+
+            points.Add(centerTopPoint);
+            points.Add(centerBottomPoint);
+            points.Add(leftTopPoint);
+            points.Add(leftBottomPoint);
+            points.Add(rightTopPoint);
+            points.Add(rightBottomPoint);
+            points.Add(rightCenterPoint);
+            points.Add(leftCenterPoint);
+            points.Add(rightTopCenterPoint);
+            points.Add(leftTopCenterPoint);
+            points.Add(rightBottomCenterPoint);
+            points.Add(leftBottomCenterPoint);
+
+            return points;
+        }
+
+        private List<LineGraph> GenerateLines(List<PointGraph> points)
+        {
+            List<LineGraph> lines = new List<LineGraph>();
+
+            PointGraph centerTopPoint = points[0];
+            PointGraph centerBottomPoint = points[1];
+            PointGraph leftTopPoint = points[2];
+            PointGraph leftBottomPoint = points[3];
+            PointGraph rightTopPoint = points[4];
+            PointGraph rightBottomPoint = points[5];
+            PointGraph rightCenterPoint = points[6];
+            PointGraph leftCenterPoint = points[7];
+            PointGraph rightTopCenterPoint = points[8];
+            PointGraph leftTopCenterPoint = points[9];
+            PointGraph rightBottomCenterPoint = points[10];
+            PointGraph leftBottomCenterPoint = points[11];
 
             LineGraph centerVerticalLine = new LineGraph(centerTopPoint, centerBottomPoint, Length, Color);
             LineGraph leftVerticalLine = new LineGraph(leftTopPoint, leftBottomPoint, Length, Color);
@@ -92,7 +136,25 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
             lines.Add(rigthCenterDiagonal);
             lines.Add(leftCenterDiagonal);
 
+            return lines;
+        }
+
+        private List<CircleGraph> GenerateCircles(List<PointGraph> points)
+        {
             List<CircleGraph> circles = new List<CircleGraph>();
+
+            PointGraph centerTopPoint = points[0];
+            PointGraph centerBottomPoint = points[1];
+            PointGraph leftTopPoint = points[2];
+            PointGraph leftBottomPoint = points[3];
+            PointGraph rightTopPoint = points[4];
+            PointGraph rightBottomPoint = points[5];
+            PointGraph rightCenterPoint = points[6];
+            PointGraph leftCenterPoint = points[7];
+            PointGraph rightTopCenterPoint = points[8];
+            PointGraph leftTopCenterPoint = points[9];
+            PointGraph rightBottomCenterPoint = points[10];
+            PointGraph leftBottomCenterPoint = points[11];
 
             CircleGraph centerCircle = new CircleGraph(CenterPoint, leftCenterPoint, Length, SecondColor);
             CircleGraph rightTopCircle = new CircleGraph(rightTopCenterPoint, rightTopPoint, Length, SecondColor);
@@ -110,13 +172,26 @@ namespace AtividadeCGPI.ComplexGraphic.CommonImage
             circles.Add(rightCenterCircle);
             circles.Add(leftCenterCircle);
 
-            GraphicUtils.DrawAllCircles(circles, drawingBase);
-            GraphicUtils.DrawAllLines(lines, drawingBase);
+            return circles;
         }
 
-        private double GetGoldenRatio()
+        public List<PointGraph> GetAllPoints()
         {
-            return (1 + Math.Sqrt(5)) / 2;
+            List<PointGraph> points = GeneratePoints();
+            List<LineGraph> lines = GenerateLines(points);
+            List<CircleGraph> circles = GenerateCircles(points);
+
+            foreach (LineGraph line in lines)
+            {
+                points.AddRange(line.GetAllPoints());
+            }
+
+            foreach (CircleGraph circle in circles)
+            {
+                points.AddRange(circle.GetAllPoints());
+            }
+
+            return points;
         }
     }
 }

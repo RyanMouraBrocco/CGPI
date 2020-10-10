@@ -5,6 +5,10 @@ using AtividadeCGPI.Graphic.Circle;
 using System.Drawing;
 using AtividadeCGPI.ComplexGraphic.CommonImage;
 using AtividadeCGPI.ComplexGraphic.LinesFigure;
+using AtividadeCGPI.Mapping;
+using System.Collections.Generic;
+using AtividadeCGPI.Graphic.Plan;
+using AtividadeCGPI.Graphic;
 
 namespace AtividadeCGPI
 {
@@ -13,6 +17,7 @@ namespace AtividadeCGPI
         private PointGraph startPoint;
         private int state = 0;
         private Color color;
+        bool mapping = false;
         public Form1()
         {
             InitializeComponent();
@@ -21,22 +26,14 @@ namespace AtividadeCGPI
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
+            List<PointGraph> points = new List<PointGraph>();
             if (startPoint == null)
             {
                 PointGraph newPoint = new PointGraph(e.X, e.Y);
                 newPoint.Color = color;
-                if (state != 3)
-                {
-                    newPoint.Draw(this);
-                    startPoint = newPoint;
-                }
-                else
-                {
-                    //CommonImageGraph commonImage = new CommonImageGraph(newPoint, 5, color);
-                    //commonImage.Draw(this);
-                    LinesFigureGraph linesFigure = new LinesFigureGraph(newPoint, 5, 5, 300, color);
-                    linesFigure.Draw(this);
-                }
+                newPoint.Draw(this);
+                startPoint = newPoint;
+                points.Add(newPoint);
             }
             else
             {
@@ -46,26 +43,36 @@ namespace AtividadeCGPI
                     case 0:
                         newPoint.Color = color;
                         newPoint.Draw(this);
+                        points.Add(newPoint);
                         break;
                     case 1:
                         LineGraph newLine = new LineGraph(startPoint, newPoint);
                         newLine.Color = color;
                         newLine.Draw(this);
+                        points.AddRange(newLine.GetAllPoints());
                         break;
                     case 2:
                         CircleGraph newCirle = new CircleGraph(startPoint, newPoint);
                         newCirle.Color = color;
                         newCirle.Draw(this);
+                        points.AddRange(newCirle.GetAllPoints());
                         break;
                     default:
                         break;
                 }
 
-
                 startPoint = null;
             }
-        }
 
+            if (mapping)
+            {
+                RectangularPlanGraph drawingBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(this.Width, this.Height));
+                RectangularPlanGraph viewBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(panel2.Width, panel2.Height));
+                MapperGraph mapper = new MapperGraph(points, drawingBase, viewBase);
+                mapper.Map();
+                GraphicUtils.DrawAllPoints(mapper.FinalPoints, panel2);
+            }
+        }
         private void Form1_Load(object sender, System.EventArgs e)
         {
             color = Color.Black;
@@ -75,6 +82,7 @@ namespace AtividadeCGPI
         private void btnClear_Click(object sender, System.EventArgs e)
         {
             this.Invalidate();
+            panel2.Invalidate();
             startPoint = null;
         }
 
@@ -108,6 +116,20 @@ namespace AtividadeCGPI
             {
                 color = colorDialog1.Color;
                 panelColor.BackColor = color;
+            }
+        }
+
+        private void btnMapping_Click(object sender, System.EventArgs e)
+        {
+            if (mapping)
+            {
+                mapping = false;
+                panel2.Visible = false;
+            }
+            else
+            {
+                mapping = true;
+                panel2.Visible = true;
             }
         }
     }

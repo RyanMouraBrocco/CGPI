@@ -137,5 +137,10 @@ namespace AtividadeCGPI.Graphic.Line
 
             return diffX < diffY;
         }
+
+        public List<PointGraph> GetAllPoints()
+        {
+            return GeneratePoints();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -29,12 +30,12 @@ namespace AtividadeCGPI.Graphic.Point
             PositionX = x;
             PositionY = y;
             Color = color;
-            Length = length;
+            Length = length <= 0 ? 1 : length;
         }
 
         public void Draw(Control drawingBase)
         {
-            System.Drawing.Point drawingPoint = PointGraphToMicrosoftPoint(this);
+            System.Drawing.Point drawingPoint = PointGraphToMicrosoftPoint(GetAllPoints().First());
             Pen pen = GraphicUtils.CreatePenByGraphObject(this);
             drawingBase.CreateGraphics().FillRectangle(pen.Brush, new Rectangle(drawingPoint, new Size(Length, Length)));
         }
@@ -57,6 +58,13 @@ namespace AtividadeCGPI.Graphic.Point
             clonedObject.Color = this.Color;
 
             return clonedObject;
+        }
+
+        public List<PointGraph> GetAllPoints()
+        {
+            List<PointGraph> allPoints = new List<PointGraph>();
+            allPoints.Add(this);
+            return allPoints;
         }
     }
 }
