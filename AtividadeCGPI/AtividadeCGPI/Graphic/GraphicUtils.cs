@@ -42,5 +42,13 @@ namespace AtividadeCGPI.Graphic
                 circle.Draw(drawingBase);
             }
         }
+
+        public static void EraseGraph(IGraph graph, Color drawingBaseColor, Control drawingBase)
+        {
+            Color originalColor = graph.Color;
+            graph.Color = drawingBaseColor;
+            graph.Draw(drawingBase);
+            graph.Color = originalColor;
+        }
     }
 }

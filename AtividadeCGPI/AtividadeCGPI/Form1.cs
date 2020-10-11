@@ -17,10 +17,19 @@ namespace AtividadeCGPI
         private PointGraph startPoint;
         private int state = 0;
         private Color color;
-        bool mapping = false;
+        private bool mapping = false;
+        private Stack<IGraph> drawedGraphs;
+        private Stack<IGraph> deletedGraphs;
+        private RectangularPlanGraph drawingBase;
+        private RectangularPlanGraph viewBase;
+
         public Form1()
         {
             InitializeComponent();
+            drawedGraphs = new Stack<IGraph>();
+            deletedGraphs = new Stack<IGraph>();
+            drawingBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(this.Width, this.Height));
+            viewBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(panel2.Width, panel2.Height));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -31,9 +40,14 @@ namespace AtividadeCGPI
             {
                 PointGraph newPoint = new PointGraph(e.X, e.Y);
                 newPoint.Color = color;
-                newPoint.Draw(this);
                 startPoint = newPoint;
-                points.Add(newPoint);
+
+                if (state == 0)
+                {
+                    newPoint.Draw(this);
+                    points.Add(newPoint);
+                    drawedGraphs.Push(newPoint);
+                }
             }
             else
             {
@@ -44,18 +58,21 @@ namespace AtividadeCGPI
                         newPoint.Color = color;
                         newPoint.Draw(this);
                         points.Add(newPoint);
+                        drawedGraphs.Push(newPoint);
                         break;
                     case 1:
                         LineGraph newLine = new LineGraph(startPoint, newPoint);
                         newLine.Color = color;
                         newLine.Draw(this);
                         points.AddRange(newLine.GetAllPoints());
+                        drawedGraphs.Push(newLine);
                         break;
                     case 2:
                         CircleGraph newCirle = new CircleGraph(startPoint, newPoint);
                         newCirle.Color = color;
                         newCirle.Draw(this);
                         points.AddRange(newCirle.GetAllPoints());
+                        drawedGraphs.Push(newCirle);
                         break;
                     default:
                         break;
@@ -66,12 +83,12 @@ namespace AtividadeCGPI
 
             if (mapping)
             {
-                RectangularPlanGraph drawingBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(this.Width, this.Height));
-                RectangularPlanGraph viewBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(panel2.Width, panel2.Height));
                 MapperGraph mapper = new MapperGraph(points, drawingBase, viewBase);
                 mapper.Map();
                 GraphicUtils.DrawAllPoints(mapper.FinalPoints, panel2);
             }
+
+            btnDelete.Enabled = true;
         }
         private void Form1_Load(object sender, System.EventArgs e)
         {
@@ -83,6 +100,10 @@ namespace AtividadeCGPI
         {
             this.Invalidate();
             panel2.Invalidate();
+            btnRedraw.Enabled = false;
+            btnDelete.Enabled = false;
+            deletedGraphs.Clear();
+            drawedGraphs.Clear();
             startPoint = null;
         }
 
@@ -130,6 +151,52 @@ namespace AtividadeCGPI
             {
                 mapping = true;
                 panel2.Visible = true;
+            }
+        }
+
+        private void btnDelete_Click(object sender, System.EventArgs e)
+        {
+            IGraph deletedItem = drawedGraphs.Pop();
+            GraphicUtils.EraseGraph(deletedItem, this.BackColor, this);
+            deletedGraphs.Push(deletedItem);
+            btnRedraw.Enabled = true;
+
+            if (drawedGraphs.Count == 0)
+            {
+                btnDelete.Enabled = false;
+            }
+
+            if (mapping)
+            {
+                MapperGraph mapper = new MapperGraph(deletedItem.GetAllPoints(), drawingBase, viewBase);
+                mapper.Map();
+                foreach (PointGraph point in mapper.FinalPoints)
+                {
+                    GraphicUtils.EraseGraph(point, panel2.BackColor, panel2);
+                }
+            }
+        }
+
+        private void btnRedraw_Click(object sender, System.EventArgs e)
+        {
+            IGraph redrawedItem = deletedGraphs.Pop();
+            drawedGraphs.Push(redrawedItem);
+            redrawedItem.Draw(this);
+            btnDelete.Enabled = true;
+
+            if (deletedGraphs.Count == 0)
+            {
+                btnRedraw.Enabled = false;
+            }
+
+            if (mapping)
+            {
+                MapperGraph mapper = new MapperGraph(redrawedItem.GetAllPoints(), drawingBase, viewBase);
+                mapper.Map();
+                foreach (PointGraph point in mapper.FinalPoints)
+                {
+                    point.Draw(panel2);
+                }
             }
         }
     }
