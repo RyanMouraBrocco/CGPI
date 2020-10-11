@@ -29,7 +29,7 @@ namespace AtividadeCGPI
             drawedGraphs = new Stack<IGraph>();
             deletedGraphs = new Stack<IGraph>();
             drawingBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(this.Width, this.Height));
-            viewBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(panel2.Width, panel2.Height));
+            viewBase = new RectangularPlanGraph(new PointGraph(), new PointGraph(mapppedPanel.Width, mapppedPanel.Height));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -85,7 +85,7 @@ namespace AtividadeCGPI
             {
                 MapperGraph mapper = new MapperGraph(points, drawingBase, viewBase);
                 mapper.Map();
-                GraphicUtils.DrawAllPoints(mapper.FinalPoints, panel2);
+                GraphicUtils.DrawAllPoints(mapper.FinalPoints, mapppedPanel);
             }
 
             btnDelete.Enabled = true;
@@ -99,7 +99,7 @@ namespace AtividadeCGPI
         private void btnClear_Click(object sender, System.EventArgs e)
         {
             this.Invalidate();
-            panel2.Invalidate();
+            mapppedPanel.Invalidate();
             btnRedraw.Enabled = false;
             btnDelete.Enabled = false;
             deletedGraphs.Clear();
@@ -145,12 +145,12 @@ namespace AtividadeCGPI
             if (mapping)
             {
                 mapping = false;
-                panel2.Visible = false;
+                mapppedPanel.Visible = false;
             }
             else
             {
                 mapping = true;
-                panel2.Visible = true;
+                mapppedPanel.Visible = true;
             }
         }
 
@@ -172,7 +172,7 @@ namespace AtividadeCGPI
                 mapper.Map();
                 foreach (PointGraph point in mapper.FinalPoints)
                 {
-                    GraphicUtils.EraseGraph(point, panel2.BackColor, panel2);
+                    GraphicUtils.EraseGraph(point, mapppedPanel.BackColor, mapppedPanel);
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace AtividadeCGPI
                 mapper.Map();
                 foreach (PointGraph point in mapper.FinalPoints)
                 {
-                    point.Draw(panel2);
+                    point.Draw(mapppedPanel);
                 }
             }
         }

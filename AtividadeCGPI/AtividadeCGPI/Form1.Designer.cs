@@ -40,7 +40,7 @@
             this.btnCircle = new System.Windows.Forms.Button();
             this.btnLine = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.mapppedPanel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -172,15 +172,15 @@
             this.btnLine.UseVisualStyleBackColor = true;
             this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
             // 
-            // panel2
+            // mapppedPanel
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(928, 366);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(657, 354);
-            this.panel2.TabIndex = 1;
-            this.panel2.Visible = false;
+            this.mapppedPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mapppedPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mapppedPanel.Location = new System.Drawing.Point(928, 366);
+            this.mapppedPanel.Name = "mapppedPanel";
+            this.mapppedPanel.Size = new System.Drawing.Size(657, 354);
+            this.mapppedPanel.TabIndex = 1;
+            this.mapppedPanel.Visible = false;
             // 
             // button2
             // 
@@ -276,7 +276,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1597, 732);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.mapppedPanel);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -299,7 +299,7 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Button btnComon;
         private System.Windows.Forms.Button btnMapping;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel mapppedPanel;
         private System.Windows.Forms.Button btnRedraw;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button button2;
