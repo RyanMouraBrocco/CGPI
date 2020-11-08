@@ -221,12 +221,12 @@ namespace AtividadeCGPI
                     }
                     catch
                     {
-                        MessageBox.Show("Erro na importação", "Arquivo não contem definições corretas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Arquivo não contem definições corretas", "Erro na importação", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Erro na importação", "Formato do arquivo inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Formato do arquivo inválido", "Erro na importação", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

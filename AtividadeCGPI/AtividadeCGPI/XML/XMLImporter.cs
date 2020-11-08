@@ -26,38 +26,50 @@ namespace AtividadeCGPI.XML
 
         public List<IGraph> ImporterObjects(Control drawingBase)
         {
-            dynamic linesItems = GetLines();
-            List<IGraph> graphs = new List<IGraph>();
-            List<LineGraph> lines = new List<LineGraph>();
-
-            foreach (var item in linesItems)
+            try
             {
-                LineGraph newLine = new LineGraph();
-                newLine.Color = Color.FromArgb(item.color.red, item.color.green, item.color.blue);
-                newLine.StartPoint = new PointGraph(GetBrutePosition(item.startPoint.x, drawingBase.Width), GetBrutePosition(item.startPoint.y, drawingBase.Height));
-                newLine.EndPoint = new PointGraph(GetBrutePosition(item.endPoint.x, drawingBase.Width), GetBrutePosition(item.endPoint.y, drawingBase.Height));
-                lines.Add(newLine);
+                if(Xml.Element("Figura") == null)
+                {
+                    throw new Exception();
+                }
+
+                dynamic linesItems = GetLines();
+                List<IGraph> graphs = new List<IGraph>();
+                List<LineGraph> lines = new List<LineGraph>();
+
+                foreach (var item in linesItems)
+                {
+                    LineGraph newLine = new LineGraph();
+                    newLine.Color = Color.FromArgb(item.color.red, item.color.green, item.color.blue);
+                    newLine.StartPoint = new PointGraph(GetBrutePosition(item.startPoint.x, drawingBase.Width), GetBrutePosition(item.startPoint.y, drawingBase.Height));
+                    newLine.EndPoint = new PointGraph(GetBrutePosition(item.endPoint.x, drawingBase.Width), GetBrutePosition(item.endPoint.y, drawingBase.Height));
+                    lines.Add(newLine);
+                }
+
+                graphs.AddRange(lines);
+
+                dynamic circleItems = GetCircles();
+                List<CircleGraph> circles = new List<CircleGraph>();
+                foreach (var item in circleItems)
+                {
+                    CircleGraph newCircle = new CircleGraph();
+                    newCircle.Color = Color.FromArgb(item.color.red, item.color.green, item.color.blue);
+                    int bruteYPosition = GetBrutePosition(item.centerPoint.y, drawingBase.Height);
+                    int bruteXPosition = GetBrutePosition(item.centerPoint.x, drawingBase.Width);
+                    newCircle.CenterPoint = new PointGraph(bruteXPosition, bruteYPosition);
+                    int bruteRadius = GetBrutePosition(item.radius, drawingBase.Width);
+                    newCircle.ExtremePoint = new PointGraph(bruteXPosition + bruteRadius, bruteYPosition);
+                    circles.Add(newCircle);
+                }
+
+                graphs.AddRange(circles);
+
+                return graphs;
             }
-
-            graphs.AddRange(lines);
-
-            dynamic circleItems = GetCircles();
-            List<CircleGraph> circles = new List<CircleGraph>();
-            foreach (var item in circleItems)
+            catch
             {
-                CircleGraph newCircle = new CircleGraph();
-                newCircle.Color = Color.FromArgb(item.color.red, item.color.green, item.color.blue);
-                int bruteYPosition = GetBrutePosition(item.centerPoint.y, drawingBase.Height);
-                int bruteXPosition = GetBrutePosition(item.centerPoint.x, drawingBase.Width);
-                newCircle.CenterPoint = new PointGraph(bruteXPosition, bruteYPosition);
-                int bruteRadius = GetBrutePosition(item.radius, drawingBase.Width);
-                newCircle.ExtremePoint = new PointGraph(bruteXPosition + bruteRadius, bruteYPosition);
-                circles.Add(newCircle);
+                throw new Exception("Error in format");
             }
-
-            graphs.AddRange(circles);
-
-            return graphs;
         }
 
         private object GetLines()
