@@ -3,12 +3,14 @@ using AtividadeCGPI.Graphic.Point;
 using AtividadeCGPI.Graphic.Line;
 using AtividadeCGPI.Graphic.Circle;
 using System.Drawing;
-using AtividadeCGPI.ComplexGraphic.CommonImage;
-using AtividadeCGPI.ComplexGraphic.LinesFigure;
 using AtividadeCGPI.Mapping;
 using System.Collections.Generic;
 using AtividadeCGPI.Graphic.Plan;
 using AtividadeCGPI.Graphic;
+using System;
+using System.IO;
+using AtividadeCGPI.XML;
+using System.Linq;
 
 namespace AtividadeCGPI
 {
@@ -90,6 +92,7 @@ namespace AtividadeCGPI
 
             btnDelete.Enabled = true;
         }
+
         private void Form1_Load(object sender, System.EventArgs e)
         {
             color = Color.Black;
@@ -197,6 +200,44 @@ namespace AtividadeCGPI
                 {
                     point.Draw(mapppedPanel);
                 }
+            }
+        }
+
+        private void btnImporter_Click(object sender, System.EventArgs e)
+        {
+            openFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (string.Equals(Path.GetExtension(openFileDialog.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        XMLImporter importer = new XMLImporter(openFileDialog.FileName);
+                        List<IGraph> importedObjects = importer.ImporterObjects(this);
+                        foreach (var item in importedObjects)
+                        {
+                            item.Draw(this);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Erro na importação", "Arquivo não contem definições corretas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erro na importação", "Formato do arquivo inválido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnExporter_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.Filter = "XML Files (*.xml)|*.xml";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                XMLExporter exporter = new XMLExporter();
+                File.WriteAllText(saveFileDialog.FileName, exporter.ExportObjects(drawedGraphs.ToList(), this).ToString());
             }
         }
     }

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnExporter = new System.Windows.Forms.Button();
+            this.btnImporter = new System.Windows.Forms.Button();
             this.btnRedraw = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnMapping = new System.Windows.Forms.Button();
@@ -51,12 +53,16 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.Controls.Add(this.btnExporter);
+            this.panel1.Controls.Add(this.btnImporter);
             this.panel1.Controls.Add(this.btnRedraw);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnMapping);
@@ -69,8 +75,28 @@
             this.panel1.Controls.Add(this.btnLine);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1136, 78);
+            this.panel1.Size = new System.Drawing.Size(1203, 78);
             this.panel1.TabIndex = 0;
+            // 
+            // btnExporter
+            // 
+            this.btnExporter.Location = new System.Drawing.Point(1077, 16);
+            this.btnExporter.Name = "btnExporter";
+            this.btnExporter.Size = new System.Drawing.Size(106, 43);
+            this.btnExporter.TabIndex = 3;
+            this.btnExporter.Text = "Exportar";
+            this.btnExporter.UseVisualStyleBackColor = true;
+            this.btnExporter.Click += new System.EventHandler(this.btnExporter_Click);
+            // 
+            // btnImporter
+            // 
+            this.btnImporter.Location = new System.Drawing.Point(965, 16);
+            this.btnImporter.Name = "btnImporter";
+            this.btnImporter.Size = new System.Drawing.Size(106, 43);
+            this.btnImporter.TabIndex = 3;
+            this.btnImporter.Text = "Importar";
+            this.btnImporter.UseVisualStyleBackColor = true;
+            this.btnImporter.Click += new System.EventHandler(this.btnImporter_Click);
             // 
             // btnRedraw
             // 
@@ -271,6 +297,10 @@
             this.button9.Text = "Circulo";
             this.button9.UseVisualStyleBackColor = true;
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -312,6 +342,10 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnImporter;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnExporter;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 
