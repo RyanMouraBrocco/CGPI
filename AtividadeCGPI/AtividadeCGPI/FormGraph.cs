@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace AtividadeCGPI
 {
-    public partial class Form1 : Form
+    public partial class FormGraph : Form
     {
         private PointGraph startPoint;
         private int state = 0;
@@ -25,7 +25,7 @@ namespace AtividadeCGPI
         private RectangularPlanGraph drawingBase;
         private RectangularPlanGraph viewBase;
 
-        public Form1()
+        public FormGraph()
         {
             InitializeComponent();
             drawedGraphs = new Stack<IGraph>();

@@ -1,6 +1,6 @@
 ﻿namespace AtividadeCGPI
 {
-    partial class Form1
+    partial class FormGraph
     {
         /// <summary>
         ///  Required designer variable.
@@ -301,14 +301,14 @@
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             // 
-            // Form1
+            // FormGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1597, 732);
             this.Controls.Add(this.mapppedPanel);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "FormGraph";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
